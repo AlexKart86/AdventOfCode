@@ -1,6 +1,6 @@
 const readline = require('readline');
 const rl = readline.createInterface({
-    input: require('fs').createReadStream('Day4.txt')
+    input: require('fs').createReadStream('Day5.txt')
 });
 
 var result = 0;
