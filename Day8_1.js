@@ -2,6 +2,8 @@
  * Created by alex_kart on 08.12.2016.
  */
 
+'use strict';
+
 class Display
 {
     constructor()
@@ -36,8 +38,8 @@ class Display
            {
 
                var tmp = [];
-               for (var j=0; j<50; ++j)
-                 tmp.push(0);
+               /*for (var j=0; j<50; ++j)
+                 tmp.push(0);*/
 
                for (var j=0; j<50; ++j)
                {
@@ -54,8 +56,8 @@ class Display
            if (commands[1] == 'column')
            {
                var tmp = [];
-               for (var i=0; i<6; ++i)
-                   tmp.push(0);
+               /*for (var i=0; i<6; ++i)
+                   tmp.push(0);*/
 
                for (var i=0; i<6; ++i)
                {
