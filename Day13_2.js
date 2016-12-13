@@ -58,33 +58,72 @@ function print_results()
     }
 }
 
-function recurse(points_count, cur_x, cur_y, prev_x, prev_y)
+function is_exists(p_x, p_y, cur_x, cur_y)
+{
+    for (var i=0; i<p_x.length; ++i)
+    {
+        if (p_x[i] == cur_x && p_y[i] == cur_y)
+            return true;
+    }
+    return false;
+
+}
+
+
+function recurse(points_count, cur_x, cur_y, passed_points_x, passed_points_y)
 {
 
     if (check_passed_points(cur_x, cur_y))
-    {
         passed_points.push([cur_x, cur_y]);
-        console.log(passed_points.length);
-        // if (passed_points.length >= 132)
-        // {
-        //     print_results();
-        // }
-    }
 
     if (points_count == 50)
         return;
 
+    if (maze[cur_x+1][cur_y] && !(is_exists(passed_points_x, passed_points_y, cur_x+1, cur_y))  )
+    {
+        let new_points_x = passed_points_x.slice();
+        new_points_x.push(cur_x);
+        let new_points_y = passed_points_y.slice();
+        new_points_y.push(cur_y);
 
-    if (maze[cur_x+1][cur_y] && !(prev_x == cur_x+1 && prev_y == cur_y) /*&& check_passed_points(cur_x+1, cur_y)*/)
-        recurse(points_count+1, cur_x+1, cur_y, cur_x, cur_y);
-    if (maze[cur_x][cur_y+1] && !(prev_x == cur_x && prev_y == cur_y+1) /*&& check_passed_points(cur_x, cur_y+1)*/)
-        recurse(points_count+1, cur_x, cur_y+1, cur_x, cur_y);
-    if (cur_x>0 && maze[cur_x-1][cur_y] && !(prev_x == cur_x-1 && prev_y == cur_y) /*&& check_passed_points(cur_x-1, cur_y)*/)
-        recurse(points_count+1, cur_x-1, cur_y, cur_x, cur_y);
-    if (cur_y>0 && maze[cur_x][cur_y-1] && !(prev_x == cur_x && prev_y == cur_y-1)/*&& check_passed_points(cur_x, cur_y-1)*/)
-        recurse(points_count+1, cur_x, cur_y-1);
+        recurse(points_count + 1, cur_x + 1, cur_y, new_points_x, new_points_y);
+    }
+
+
+    if (maze[cur_x][cur_y+1] && !(is_exists(passed_points_x, passed_points_y, cur_x, cur_y+1)) )
+    {
+        let new_points_x = passed_points_x.slice();
+        new_points_x.push(cur_x);
+        let new_points_y = passed_points_y.slice();
+        new_points_y.push(cur_y);
+
+        recurse(points_count+1, cur_x, cur_y+1, new_points_x, new_points_y);
+    }
+
+
+    if (cur_x>0 && maze[cur_x-1][cur_y] && !(is_exists(passed_points_x, passed_points_y, cur_x-1, cur_y)) )
+    {
+        let new_points_x = passed_points_x.slice();
+        new_points_x.push(cur_x);
+        let new_points_y = passed_points_y.slice();
+        new_points_y.push(cur_y);
+        recurse(points_count+1, cur_x-1, cur_y, new_points_x, new_points_y);
+    }
+
+
+    if (cur_y>0 && maze[cur_x][cur_y-1] && !(is_exists(passed_points_x, passed_points_y, cur_x, cur_y-1)) )
+    {
+        let new_points_x = passed_points_x.slice();
+        new_points_x.push(cur_x);
+        let new_points_y = passed_points_y.slice();
+        new_points_y.push(cur_y);
+        recurse(points_count+1, cur_x, cur_y-1, new_points_x, new_points_y) ;
+    }
+
 }
 
-recurse(0, 1, 1, 1, 1);
-console.log(passed_points.length);
+recurse(0, 1, 1, [1], [1]);
+console.log('');
 print_results();
+console.log('');
+console.log(passed_points.length);
