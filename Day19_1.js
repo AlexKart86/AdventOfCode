@@ -21,7 +21,7 @@ function turn()
             idx -= (arr.length);
             arr = tmp.slice();
             tmp = [];
-            console.log(arr);
+            //console.log(arr);
         }
         tmp.push(arr[idx]);
         idx += 2;
